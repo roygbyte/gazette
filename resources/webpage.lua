@@ -4,7 +4,6 @@ local Image = require("libs/gazette/resources/image")
 local ItemFactory = require("libs/gazette/factories/itemfactory")
 local RequestFactory = require("libs/http/requestfactory")
 local util = require("util")
-local utilities = require("libs/gazette/utilities")
 local socket_url = require("socket.url")
 
 local WebPage = Resource:new {
@@ -34,7 +33,7 @@ function WebPage:new(o)
       else
          o.html = content
       end
-   end   
+   end
 
    o.base_url = socket_url.parse(o.url)
    o.resources = {}
@@ -55,7 +54,7 @@ function WebPage:createResources()
       title = self.title or nil
    }
    table.insert(self.resources, html_document)
-   
+
    local images = self:downloadImages(
       html_document:findImageElements()
    )
@@ -93,7 +92,8 @@ function WebPage:downloadImages(image_elements)
       then
          goto continue
       end
-      local url = utilities.makeUrlAbsolute(self.base_url, src)
+
+      local url = socket_url.absolute(self.base_url, src)
       local image, err = Image:new{
          url = url
       }
