@@ -5,6 +5,7 @@ local Spine = require("libs/gazette/epub/package/spine")
 
 local Package = {
    title = nil,
+   author = nil,
    language = "en",
    modified = nil,
    manifest = nil,
@@ -26,6 +27,10 @@ end
 
 function Package:setTitle(title)
    self.title = title
+end
+
+function Package:setAuthor(author)
+    self.author = author
 end
 
 function Package:addItem(item)
@@ -82,6 +87,7 @@ function Package:getPackageXml()
    return string.format(
       template,
       self.title,
+      self.author,
       self.language,
       self.modified,
       manifest,
