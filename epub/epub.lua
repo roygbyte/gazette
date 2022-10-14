@@ -16,11 +16,13 @@ end
 function Epub:addFromList(iterator)
     while true do
         local item = iterator()
-        if item == nil
+        if type(item) == "table"
+        then
+            self:addItem(item)
+        elseif item == nil
         then
             break
         end
-        self:addItem(item)
     end
 end
 
